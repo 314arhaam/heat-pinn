@@ -18,10 +18,21 @@ With following boundary conditions:
   
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\\T(-1,&space;y)&space;=&space;75.0&space;^\circ{C}\\T(&plus;1,&space;y)&space;=&space;0.0&space;^\circ{C}\\T(x,&space;-1)&space;=&space;50.0&space;^\circ{C}\\T(x,&space;&plus;1)&space;=&space;0.0&space;^\circ{C}\\" title="\bg_white \\T(-1, y) = 75.0 ^\circ{C}\\T(+1, y) = 0.0 ^\circ{C}\\T(x, -1) = 50.0 ^\circ{C}\\T(x, +1) = 0.0 ^\circ{C}\\" />
   
-Model architecture:  
-![]()
+
 ## Results
 Comparing PINN to FDM:  
-![]()
+![pinn-vs-fdm](https://github.com/314arhaam/heat-pinn/blob/main/graphics/results_compare.png)  
 Temperature profiles:  
-![]()
+![profiles](https://github.com/314arhaam/heat-pinn/blob/main/graphics/profiles.png)
+
+### Performance comparison
+Results obtained from a [9 layered DNN]() and 1000 epochs
+FDM code is written in Python. A C++ based solver could perform much better.
+|**Method**|**Computation time (s)**|
+|-|-|
+|PINN|66.35|
+|FDM|77.60|
+
+
+# Note
+This implementation is based on [Tensorflow 2.0](https://www.tensorflow.org/guide/effective_tf2) package and made possible by [Google Colabratory](https://colab.research.google.com) GPU.
