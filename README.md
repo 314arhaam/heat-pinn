@@ -26,8 +26,7 @@ Temperature profiles:
 ![profiles](https://github.com/314arhaam/heat-pinn/blob/main/graphics/profiles.png)
 
 ### Performance comparison
-Results obtained from a [9 layered DNN]() and 1000 epochs
-FDM code is written in Python. A C++ based solver could perform much better.
+Results obtained from a [9 layered DNN]() (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python, a C++ based solver could perform much better.
 |**Method**|**Computation time (s)**|
 |-|-|
 |PINN|66.35|
