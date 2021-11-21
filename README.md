@@ -1,7 +1,8 @@
-# heat-pinn
-A Physics-Informed Neural Network to solve 2D steady-state heat equation
-
-Based on the methodology introduced in: [Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations](https://arxiv.org/abs/1711.10561)
+<p align="center">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/header.png" width="100" title="hover text">
+</p>
+<h1 align="center">Heat-PINN</h1>
+<p> A Physics-Informed Neural Network to solve 2D steady-state heat equation. Based on the methodology introduced in: <a href="https://arxiv.org/abs/1711.10561">Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations</a></p>
 
 ## Introduction
 In this project, a PINN is trained to solve a 2D heat equation and the final results is compared to a solution based on FDM method. For more detailts about the project please read [this](https://github.com/314arhaam/burger-pinn).
