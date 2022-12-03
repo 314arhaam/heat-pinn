@@ -30,6 +30,10 @@ Temperature profiles:
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/profiles.png" title="profiles">
 </p>
 
+**Update**: Performance test on a doughnott!
+<p align="center">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/heat_pinn_doughnotts.png" title="pinn-vs-fdm">
+</p> 
 ### Performance comparison
 Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/graphics/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python, a C++ based solver could perform much better.
 |**Method**|**Computation time (s)**|
