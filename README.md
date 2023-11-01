@@ -26,7 +26,7 @@ With following boundary conditions:
   
 
 ## Results <a name="res"></a>
-Comparing PINN to FDM:  
+### Comparing PINN to FDM  
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/results_compare.png" title="pinn-vs-fdm">
 </p> 
@@ -35,13 +35,13 @@ Temperature profiles:
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/profiles.png" title="profiles">
 </p>
 
-**Update**: Performance test on a doughnott!
+### Performance test on a doughnut
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/heat_pinn_doughnotts.png" title="doughnotts">
 </p>
 
 
-### Performance comparison
+## Performance
 Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/graphics/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python, a C++ based solver could perform much better.
 |**Method**|**Computation time (s)**|
 |-|-|
@@ -49,5 +49,5 @@ Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/b
 |FDM|77.60|
 
 
-# Note
+## Note
 This implementation is based on [Tensorflow 2.0](https://www.tensorflow.org/guide/effective_tf2) package and made possible by [Google Colabratory](https://colab.research.google.com) GPU.
