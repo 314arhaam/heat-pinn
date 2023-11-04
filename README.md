@@ -26,7 +26,7 @@ With following boundary conditions:
   
 
 ## Results <a name="res"></a>
-### Comparing PINN to FDM  
+### Square geometry 
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/results_compare.png" title="pinn-vs-fdm">
 </p> 
@@ -35,7 +35,7 @@ Temperature profiles:
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/profiles.png" title="profiles">
 </p>
 
-### Performance test on a doughnut
+### Doughnut geometry
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/heat_pinn_doughnotts.png" title="doughnotts">
 </p>
