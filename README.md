@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/synthwave-heatpinn.png" width="100" title="Heat-PINN">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/2023-11-08-19-00-36_EDIT.org.png" width="300" title="Heat-PINN">
 </p>
 <h1 align="center">Heat-PINN</h1>
 <p> A Physics-Informed Neural Network to solve 2D steady-state heat equation. Based on the methodology introduced in: <a href="https://arxiv.org/abs/1711.10561">Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations</a></p>
