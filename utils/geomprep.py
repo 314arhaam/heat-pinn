@@ -7,6 +7,13 @@ from shapely import Polygon, Point, MultiPoint
 from matplotlib.path import Path
 from shapely.geometry import GeometryCollection
 
+
+"""
+WARNING:
+Currently it only works fine with multi geometry shapely objects, have bugs when
+there are simple shapely geometries.
+"""
+
 class Geometry:
     """Geometry object
     The purpose of this class is to convert a shapely.geometry object to a
