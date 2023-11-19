@@ -83,23 +83,34 @@ class Geometry2D(Geometry):
             None
         """
         geometry = self.geometry
+        # find bounds or envelope corners
         xmin, ymin, xmax, ymax = geometry.bounds
         random_domain = np.random.rand(tolcoef*n, 2)
+        # defining the `envelope` as the biggest rectangle that covers all over 
+        # the shape, here we distribute the random numbers over the envelope 
+        # that covers the shapely.geometry object.
         random_domain[:, 0] = random_domain[:, 0] * (xmax - xmin) + xmin
         random_domain[:, 1] = random_domain[:, 1] * (ymax - ymin) + ymin
+        # covert the `numpy.array` random points to `shapely.MultiPoint` object 
+        # so they could be easily intersected with the desired geometry
         random_domain = MultiPoint(random_domain)
         domain = shapely.intersection(geometry, random_domain)
+        # covert to `numpy.array`, maybe a `pandas.DataFrame` in future
         self.domain = np.array(list(map(lambda p: [p.x, p.y], list(domain.geoms))))
         return None
     
     def plot(self):
-        """Plot the boundary and domain points, as an scatter plot.
+        """Plot the boundary and domain points, as an scatter plot. Useful to 
+        check if everything is generated correctly, according to the desired
+        shapely.geometry.
 
         Returns:
             None
         """
+        # just making the xs & ys easier to call.
         xb, yb = self.boundaryDataFrame['x'], self.boundaryDataFrame['y']
         xd, yd = self.domain[:, 0], self.domain[:, 1]
-        plt.scatter(xb, yb, c='k', marker='x')
-        plt.scatter(xd, yd, c='r', marker='.')
+        # scatter plot
+        plt.scatter(xb, yb, c='k', marker='x') # black 'X's for boundary points
+        plt.scatter(xd, yd, c='r', marker='.') # red dots for domain points
         return None
