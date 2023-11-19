@@ -1,5 +1,5 @@
 from geomprep import Geometry2D
-from shapely import Polygon, Point, MultiPoint
+from shapely import Polygon, Point
 
 if __name__ == "__main__":
     # create a polygon
