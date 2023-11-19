@@ -2,10 +2,11 @@ import shapely
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import shapely.geometry as geometry
-from shapely import Polygon, Point, MultiPoint
-from matplotlib.path import Path
-from shapely.geometry import GeometryCollection
+import shapely
+from shapely import MultiPoint #, Polygon, Point
+# import shapely.geometry as geometry
+# from matplotlib.path import Path
+# from shapely.geometry import GeometryCollection
 
 
 """
