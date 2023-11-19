@@ -1,11 +1,8 @@
-import time
 import shapely
 import numpy as np
 import pandas as pd
-import tensorflow as tf
 import matplotlib.pyplot as plt
 import shapely.geometry as geometry
-from matplotlib import cm
 from shapely import Polygon, Point, MultiPoint
 from matplotlib.path import Path
 from shapely.geometry import GeometryCollection
@@ -22,7 +19,7 @@ class Geometry2D(Geometry):
     def makeBoundary(self, n: int) -> None:
         geometry = self.geometry
         n += 1
-        bounds, N, data = [], [], []
+        N, data = [], []
         total_perim = geometry.length
         distances = np.linspace(0, total_perim, n)
         for geom in list(geometry.boundary.geoms):
