@@ -8,15 +8,43 @@ from matplotlib.path import Path
 from shapely.geometry import GeometryCollection
 
 class Geometry:
+    """Geometry object
+    The purpose of this class is to convert a shapely.geometry object to a
+    point cloud of boundary points and domain points that could be used for
+    our PINN algorithm.
+    """
     def __init__(self, geometry: shapely.geometry) -> None:
+        """Initialize the object
+
+        Args:
+            geometry (shapely.geometry): The shapely freindly geometry object
+            to convert to set of points.
+        """
         self.geometry = geometry
     
 
 class Geometry2D(Geometry):
+    """2-dimensional geometry
+    """
     def __init__(self, geometry: shapely.geometry) -> None:
+        """Initialize the object
+
+        Args:
+            geometry (shapely.geometry): The shapely freindly geometry object
+            to convert to set of points.
+        """
         super().__init__(geometry)
     
     def makeBoundary(self, n: int) -> None:
+        """This method is used to generate random points on all of the geometry
+        boundaries.
+
+        Args:
+            n (int): total number of points on all boundaries.
+
+        Returns:
+            None
+        """
         geometry = self.geometry
         n += 1
         N, data = [], []
@@ -35,6 +63,17 @@ class Geometry2D(Geometry):
         return None
     
     def makeDomain(self, n: int, tolcoef: int = 4) -> None:
+        """This method is used to randomly distribute points on the main domain
+        of the geometry.
+
+        Args:
+            n (int): total number of the points inside the geometry domain.
+            tolcoef (int, optional): For cases with a hole or subtracted geometry,
+            use this parameter to recover the number of points. Defaults to 4.
+
+        Returns:
+            None
+        """
         geometry = self.geometry
         xmin, ymin, xmax, ymax = geometry.bounds
         random_domain = np.random.rand(tolcoef*n, 2)
@@ -46,6 +85,11 @@ class Geometry2D(Geometry):
         return None
     
     def plot(self):
+        """Plot the boundary and domain points, as an scatter plot.
+
+        Returns:
+            None
+        """
         xb, yb = self.boundaryDataFrame['x'], self.boundaryDataFrame['y']
         xd, yd = self.domain[:, 0], self.domain[:, 1]
         plt.scatter(xb, yb, c='k', marker='x')
