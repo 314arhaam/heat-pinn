@@ -47,18 +47,26 @@ class Geometry2D(Geometry):
         """
         geometry = self.geometry
         n += 1
+        # initialize data lists
         N, data = [], []
+        # measure the total perimeter of the geometry boundary
         total_perim = geometry.length
+        # create n evenly distributed points on the whole perimeter
         distances = np.linspace(0, total_perim, n)
+        # number of points on each boundary side must be porpotional to its 
+        # length. In other words, the percentage of the length it has.
         for geom in list(geometry.boundary.geoms):
             perim = geom.length
             N.append(int(n*perim/total_perim))
+        # walk on the perimeter
         for n, geom in zip(N, list(geometry.boundary.geoms)):
             distances = np.linspace(0, geom.length, 5*n)
             distances = distances[list(np.random.randint(0, 5*n, n))]
             for d in distances:
                 data.append(*geom.interpolate(d).coords)
+        # generate padnas.DataFrame object for boundary points
         self.boundaryDataFrame = pd.DataFrame(data, columns=["x", "y"])
+        # set the BC value for each point to default: 0.
         self.boundaryDataFrame['value'] = 0.
         return None
     
