@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/2023-11-08-19-09-09_EDIT.org.png" width="360" title="Heat-PINN; made by EDIT.org">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/2023-11-08-19-09-09_EDIT.org.png" width="360" title="Heat-PINN; made by EDIT.org">
 </p>
 <h1>Heat-PINN</h1>
 <p> A Physics-Informed Neural Network to solve 2D steady-state heat equation. Based on the methodology introduced in: <a href="https://arxiv.org/abs/1711.10561">Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations</a>.</p>
@@ -28,21 +28,21 @@ With following boundary conditions:
 ## Results <a name="res"></a>
 ### Square geometry 
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/results_compare.png" title="pinn-vs-fdm">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/results_compare.png" title="pinn-vs-fdm">
 </p> 
 Temperature profiles:  
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/profiles.png" title="profiles">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/profiles.png" title="profiles">
 </p>
 
 ### Doughnut geometry
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/graphics/heat_pinn_doughnotts.png" title="doughnotts">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/heat_pinn_doughnotts.png" title="doughnotts">
 </p>
 
 
 ## Performance
-Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/graphics/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python, a C++ based solver could perform much better.
+Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/gallery/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python, a C++ based solver could perform much better.
 |**Method**|**Computation time (s)**|
 |-|-|
 |PINN|66.35|
