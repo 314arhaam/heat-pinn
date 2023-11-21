@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import shapely
-from shapely import MultiPoint #, Polygon, Point
+from shapely import MultiPoint
 # import shapely.geometry as geometry
 # from matplotlib.path import Path
 # from shapely.geometry import GeometryCollection
