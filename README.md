@@ -10,7 +10,8 @@
 
 
 ## Introduction <a name="intro"></a>
-In this project, a PINN is trained to solve a 2D heat equation and the final results is compared to a solution based on FDM method. For more detailts about the project read [this](https://github.com/314arhaam/burger-pinn).
+In this project, a PINN is trained to solve a 2D heat equation and the final results is compared to a solution based on FDM method. 
+For more detailts about the project read [this](https://github.com/314arhaam/burger-pinn).
 ### Problem details
 The governing equation:  
   
