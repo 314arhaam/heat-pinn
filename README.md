@@ -42,7 +42,7 @@ Temperature profiles:
 </p>
 
 
-## Performance
+## Performance Comparison
 Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/gallery/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python, a C++ based solver could perform much better.
 |**Method**|**Computation time (s)**|
 |-|-|
