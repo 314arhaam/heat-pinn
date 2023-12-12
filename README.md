@@ -12,7 +12,7 @@
 ## Introduction <a name="intro"></a>
 In this project, a PINN is trained to solve a 2D heat equation and the final results is compared to a solution based on FDM method. 
 For more detailts about the project read [this](https://github.com/314arhaam/burger-pinn).
-### Problem details
+### Problem
 The governing equation:  
   
 ![](https://latex.codecogs.com/svg.image?%5Cbg_white%20%5C%5C%5Cfrac%7B%5Cpartial%5E2%7BT%7D%7D%7B%5Cpartial%7Bx%5E2%7D%7D&plus;%5Cfrac%7B%5Cpartial%5E2%7BT%7D%7D%7B%5Cpartial%7By%5E2%7D%7D=0)
