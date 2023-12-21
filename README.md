@@ -15,7 +15,7 @@ For more detailts about the project read [this](https://github.com/314arhaam/bur
 ### Problem
 The governing equation:  
   
-### $\nabla^2{T} = (\partial_{xx}+\partial_{yy})T=0$
+### $\nabla^2{T} = (\partial_{xx}+\partial_{yy})T=0$  
 in the following domain:  
   
 
