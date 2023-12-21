@@ -15,15 +15,18 @@ For more detailts about the project read [this](https://github.com/314arhaam/bur
 ### Problem
 The governing equation:  
   
-### $\frac{\partial^2{T}}{\partial{x^2}}+\frac{\partial^2{T}}{\partial{y^2}}=0$  
+### $\nabla^2{T} = (\partial_{xx}+\partial_{yy})T=0$
 in the following domain:  
   
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\\D&space;=&space;\{(x,&space;y)|-1\leq{x}\leq{&plus;1},-1\leq{y}\leq{&plus;1}\}" title="\bg_white \\D = \{(x, y)|-1\leq{x}\leq{+1},-1\leq{y}\leq{+1}\}" />
-  
+
+### $D = \\{ (x, y)|-1\le x \le +1 \land -1\le y \le +1 \\}$
 With following boundary conditions:
   
-<img src="https://latex.codecogs.com/svg.image?\bg_white&space;\\T(-1,&space;y)&space;=&space;75.0&space;^\circ{C}\\T(&plus;1,&space;y)&space;=&space;0.0&space;^\circ{C}\\T(x,&space;-1)&space;=&space;50.0&space;^\circ{C}\\T(x,&space;&plus;1)&space;=&space;0.0&space;^\circ{C}\\" title="\bg_white \\T(-1, y) = 75.0 ^\circ{C}\\T(+1, y) = 0.0 ^\circ{C}\\T(x, -1) = 50.0 ^\circ{C}\\T(x, +1) = 0.0 ^\circ{C}\\" />
-  
+
+$T(-1, y) = 75.0 \degree{C}$  
+$T(+1, y) = 0.0 \degree{C}$  
+$T(x, -1) = 50.0 \degree{C}$  
+$T(x, +1) = 0.0 \degree{C}$  
 
 ## Results <a name="res"></a>
 ### Square geometry 
