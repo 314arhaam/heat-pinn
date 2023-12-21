@@ -15,8 +15,7 @@ For more detailts about the project read [this](https://github.com/314arhaam/bur
 ### Problem
 The governing equation:  
   
-![](https://latex.codecogs.com/svg.image?%5Cbg_white%20%5C%5C%5Cfrac%7B%5Cpartial%5E2%7BT%7D%7D%7B%5Cpartial%7Bx%5E2%7D%7D&plus;%5Cfrac%7B%5Cpartial%5E2%7BT%7D%7D%7B%5Cpartial%7By%5E2%7D%7D=0)
-
+### $\frac{\partial^2{T}}{\partial{x^2}}+\frac{\partial^2{T}}{\partial{y^2}}=0$  
 in the following domain:  
   
 <img src="https://latex.codecogs.com/svg.image?\bg_white&space;\\D&space;=&space;\{(x,&space;y)|-1\leq{x}\leq{&plus;1},-1\leq{y}\leq{&plus;1}\}" title="\bg_white \\D = \{(x, y)|-1\leq{x}\leq{+1},-1\leq{y}\leq{+1}\}" />
