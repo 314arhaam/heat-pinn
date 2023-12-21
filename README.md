@@ -20,15 +20,22 @@ in the following domain:
   
 
 ### $D = \\{ (x, y)|-1\le x \le +1 \land -1\le y \le +1 \\}$
-With following boundary conditions:
+With the following boundary conditions:
   
 
-$T(-1, y) = 75.0 \degree{C}$  
-$T(+1, y) = 0.0 \degree{C}$  
-$T(x, -1) = 50.0 \degree{C}$  
-$T(x, +1) = 0.0 \degree{C}$  
+$$
+\begin{equation}
+  \begin{cases}
+    T(-1, y) = 75.0 \degree{C}\\
+    T(+1, y) = 0.0 \degree{C}\\
+    T(x, -1) = 50.0 \degree{C}\\  
+    T(x, +1) = 0.0 \degree{C}\\
+  \end{cases}
+\end{equation}
+$$
 
 ## Results <a name="res"></a>
+  
 ### Square geometry 
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/results_compare.png" title="pinn-vs-fdm">
