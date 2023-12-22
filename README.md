@@ -16,8 +16,9 @@ In this project, a PINN is trained to solve a 2D heat equation and the final res
 For more detailts about the project read [this](https://github.com/314arhaam/burger-pinn).
 ### Problem
 The governing equation:  
-  
-### $\nabla^2{T} = (\partial_{xx}+\partial_{yy})T=0$  
+
+### $\Theta = \frac{T - T_{\textbf{min}}}{T_{\textbf{max}}-T_{\textbf{min}}}$  
+### $\nabla^2{\Theta} = (\partial_{xx}+\partial_{yy})\Theta=0$  
 in the following domain:  
   
 
@@ -32,6 +33,19 @@ $$
     T(+1, y) = 0.0 \degree{C}\\
     T(x, -1) = 50.0 \degree{C}\\  
     T(x, +1) = 0.0 \degree{C}\\
+  \end{cases}
+\end{equation}
+$$  
+  
+When normalized:  
+
+$$
+\begin{equation}
+  \begin{cases}
+    \Theta(-1, y) = 1\\
+    \Theta(+1, y) = 0\\
+    \Theta(x, -1) = \frac{2}{3}\\  
+    \Theta(x, +1) = 0\\
   \end{cases}
 \end{equation}
 $$
