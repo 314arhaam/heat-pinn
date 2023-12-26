@@ -17,12 +17,21 @@ For more detailts about the project read [this](https://github.com/314arhaam/bur
 ### Problem
 The governing equation:  
 
-### $\Theta = \frac{T - T_{\textbf{min}}}{T_{\textbf{max}}-T_{\textbf{min}}}$  
-### $\nabla^2{\Theta} = (\partial_{xx}+\partial_{yy})\Theta=0$  
+$$
+\Theta = \frac{T - T_{\textbf{min}}}{T_{\textbf{max}}-T_{\textbf{min}}}
+$$   
+
+$$ 
+\nabla^2{\Theta} = (\partial_{xx}+\partial_{yy})\Theta=0
+$$  
+
 in the following domain:  
   
 
-### $D = \\{ (x, y)|-1\le x \le +1 \land -1\le y \le +1 \\}$
+$$  
+D = \\{ (x, y)|-1\le x \le +1 \land -1\le y \le +1 \\}
+$$  
+
 With the following boundary conditions:
   
 
