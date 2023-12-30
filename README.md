@@ -6,7 +6,7 @@
 
 <p> A Physics-Informed Neural Network to solve 2D steady-state heat equation. Based on the methodology introduced in: <a href="https://arxiv.org/abs/1711.10561">Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations.</a></p>  
 
-## **ToC**
+## **Table of Contents**
  - [Introduction](#intro)
  - [Results](#res)
 
