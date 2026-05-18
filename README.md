@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/2023-11-08-19-09-09_EDIT.org.png" width="360" title="Heat-PINN; made by EDIT.org">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/2023-11-08-19-09-09_EDIT.org.png" width="360" title="Heat-PINN; made by EDIT.org">
 </p>  
 
 # 🔥 $\textbf{Heat-PINN}$ 🔥
@@ -63,21 +63,21 @@ $$
   
 ### Square geometry 
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/results_compare.png" title="pinn-vs-fdm">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/results_compare.png" title="pinn-vs-fdm">
 </p> 
 Temperature profiles:  
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/profiles.png" title="profiles">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/profiles.png" title="profiles">
 </p>
 
 ### Doughnut geometry
 <p align="center">
-  <img src="https://github.com/314arhaam/heat-pinn/blob/main/gallery/heat_pinn_doughnotts.png" title="doughnotts">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/heat_pinn_doughnotts.png" title="doughnotts">
 </p>
 
 
 ## Performance Comparison
-Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/gallery/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python.
+Results obtained from a [9 layered DNN](https://github.com/314arhaam/heat-pinn/blob/main/assets/model_plot.png) (1000 epochs) and FDM code on a 100×100 grid. The FDM code is written in Python.
 |**Method**|**Computation time (s)**|
 |-|-|
 |PINN|66.35|
