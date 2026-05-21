@@ -1,0 +1,9 @@
+assets
+README.*
+LICENCE
+.git/
+.gitignore
+notebooks/
+bin/
+data/
+.env
