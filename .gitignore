@@ -1,3 +1,12 @@
+# model, data and stuff
+*.joblib
+*.csv
+*.parquet
+
+bin/
+data/
+
+# pdf
 README.pdf
 # Byte-compiled / optimized / DLL files
 __pycache__/
