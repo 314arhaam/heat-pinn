@@ -7,7 +7,6 @@ def cmd_build(args):
     n_hidden_layers = args.n_hidden_layers
     neuron_per_layer = args.neuron_per_layer
     actfun = args.actfun
-    path = args.path
     #
     model = core.nn.dnn_builder(
         in_shape, 
@@ -20,5 +19,5 @@ def cmd_build(args):
         name = f"{model.name}.joblib"
     else:
         name = f"{args.name}"
-    joblib.dump(model, pathlib.Path(path, f"{name}"))
+    joblib.dump(model, f"{name}")
     return 0

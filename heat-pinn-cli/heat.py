@@ -14,7 +14,6 @@ def make_parser() -> argparse.ArgumentParser:
     p_build.add_argument("--neuron-per-layer", type=int, default=20)
     p_build.add_argument("--actfun", type=str, default="tanh")
     p_build.add_argument("--name", type=str, default="")
-    p_build.add_argument("--path", type=str, default=".")
     p_build.set_defaults(func=commands.build.cmd_build)
     # Train
     p_train = sub.add_parser("train", help="Train PINN")
