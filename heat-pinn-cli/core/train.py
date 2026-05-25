@@ -1,7 +1,8 @@
 import tensorflow as tf
 import numpy as np
-from typing import Any, Callable, Dict, List
-import os, time, sys
+from typing import Any, Callable, Dict
+import time
+import utils.modeltools
 
 tf.keras.backend.set_floatx("float64")
 
@@ -19,12 +20,6 @@ def f(u: Callable, x: tf.Tensor, y: tf.Tensor):
 def mse(y, y_):
     return tf.reduce_mean(tf.square(y-y_))
 
-def _model_wrapper(model):
-    @tf.function
-    def u(x, y):
-        return model(tf.concat([x, y], axis=1))
-    return u
-
 def train_pinn(
         domain: Dict[str, tf.Tensor],
         boundary: Dict[str, tf.Tensor],
@@ -36,7 +31,7 @@ def train_pinn(
         every: int = 200
 ) -> Dict[str, Any]:
     loss_values = np.array([])
-    u = _model_wrapper(model)
+    u = utils.modeltools.model_wrapper(model)
     #
     start = time.time()
     #
