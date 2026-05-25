@@ -33,5 +33,5 @@ def cmd_train(args):
         every=every
         )
     print(results)
-    joblib.dump(trained_model, pathlib.Path("data/model", f"{model.name}-trained.joblib"))
+    joblib.dump(trained_model, pathlib.Path("data/models", f"{model.name}-trained.joblib"))
     return 0
