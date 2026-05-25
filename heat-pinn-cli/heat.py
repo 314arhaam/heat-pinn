@@ -13,7 +13,8 @@ def make_parser() -> argparse.ArgumentParser:
     p_build.add_argument("--n-hidden-layers", type=int, default=1)
     p_build.add_argument("--neuron-per-layer", type=int, default=20)
     p_build.add_argument("--actfun", type=str, default="tanh")
-    p_build.add_argument("--path", type=str, default="data/")
+    p_build.add_argument("--name", type=str, default="")
+    p_build.add_argument("--path", type=str, default=".")
     p_build.set_defaults(func=commands.build.cmd_build)
     # Train
     p_train = sub.add_parser("train", help="Train PINN")
@@ -30,7 +31,7 @@ def make_parser() -> argparse.ArgumentParser:
     p_infer = sub.add_parser("infer", help="PINN Inference")
     p_infer.add_argument("--data", type=str)
     p_infer.add_argument("--model", type=str)
-    p_infer.add_argument("--output", type=str, default="data/res.parquet")
+    p_infer.add_argument("--output", type=str, default="inference_result.parquet")
     p_infer.set_defaults(func=commands.inference.cmd_infer)
     return parser
 
