@@ -35,6 +35,8 @@ def make_parser() -> argparse.ArgumentParser:
     return parser
 
 if __name__ == '__main__':
+    with open("heat-pinn-cli/banner.txt", "r") as f:
+        print(f.read())
     parser = make_parser()
     args = parser.parse_args()
     args.func(args)
