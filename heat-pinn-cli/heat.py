@@ -3,10 +3,11 @@ import argparse
 def make_parser() -> argparse.ArgumentParser:
     import commands.build
     import commands.train
+    import commands.inference
     parser = argparse.ArgumentParser(prog="mycli")
     sub = parser.add_subparsers(dest="command", required=True)
     # Build subcommand
-    p_build = sub.add_parser("build", help="build project")
+    p_build = sub.add_parser("build", help="Build PINN")
     p_build.add_argument("--in-shape", type=int, default=2)
     p_build.add_argument("--out-shape", type=int, default=1)
     p_build.add_argument("--n-hidden-layers", type=int, default=1)
@@ -15,20 +16,25 @@ def make_parser() -> argparse.ArgumentParser:
     p_build.add_argument("--path", type=str, default="data/")
     p_build.set_defaults(func=commands.build.cmd_build)
     # Train
-    p_build = sub.add_parser("train", help="train PINN")
-    p_build.add_argument("--domain", type=str)
-    p_build.add_argument("--boundary", type=str)
-    p_build.add_argument("--model", type=str)
-    # p_build.add_argument("--pde", type=int, default=1)
-    # p_build.add_argument("--loss", type=int, default=20)
-    p_build.add_argument("--epochs", type=int, default=100)
-    # p_build.add_argument("--optimizer", type=str, default="tanh")
-    p_build.add_argument("--every", type=int, default=20)
-    p_build.set_defaults(func=commands.train.cmd_train)
+    p_train = sub.add_parser("train", help="Train PINN")
+    p_train.add_argument("--domain", type=str)
+    p_train.add_argument("--boundary", type=str)
+    p_train.add_argument("--model", type=str)
+    # p_train.add_argument("--pde", type=int, default=1)
+    # p_train.add_argument("--loss", type=int, default=20)
+    p_train.add_argument("--epochs", type=int, default=100)
+    # p_train.add_argument("--optimizer", type=str, default="tanh")
+    p_train.add_argument("--every", type=int, default=20)
+    p_train.set_defaults(func=commands.train.cmd_train)
+    # Inference
+    p_infer = sub.add_parser("infer", help="PINN Inference")
+    p_infer.add_argument("--data", type=str)
+    p_infer.add_argument("--model", type=str)
+    p_infer.add_argument("--output", type=str, default="data/res.parquet")
+    p_infer.set_defaults(func=commands.inference.cmd_infer)
     return parser
 
 if __name__ == '__main__':
     parser = make_parser()
     args = parser.parse_args()
-    print(args)
     args.func(args)
