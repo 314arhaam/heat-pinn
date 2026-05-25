@@ -3,6 +3,8 @@ import numpy as np
 from typing import Any, Callable, Dict, List
 import os, time, sys, uuid
 
+tf.keras.backend.set_floatx("float64")
+
 def dnn_builder(
         in_shape=2, 
         out_shape=1, 

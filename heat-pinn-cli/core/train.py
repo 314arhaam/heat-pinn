@@ -3,6 +3,7 @@ import numpy as np
 from typing import Any, Callable, Dict, List
 import os, time, sys
 
+tf.keras.backend.set_floatx("float64")
 
 @tf.function
 def f(u: Callable, x: tf.Tensor, y: tf.Tensor):
@@ -14,6 +15,10 @@ def f(u: Callable, x: tf.Tensor, y: tf.Tensor):
     F = u_xx + u_yy
     return tf.reduce_mean(tf.square(F))
 
+@tf.function
+def mse(y, y_):
+    return tf.reduce_mean(tf.square(y-y_))
+
 def _model_wrapper(model):
     @tf.function
     def u(x, y):
@@ -24,7 +29,7 @@ def train_pinn(
         domain: Dict[str, tf.Tensor],
         boundary: Dict[str, tf.Tensor],
         model: tf.keras.Model,
-        loss_func: Callable[[tf.Tensor, tf.Tensor], tf.Tensor],
+        loss_func: Callable[[tf.Tensor, tf.Tensor], tf.Tensor] = mse,
         # pde: Callable[[tf.Tensor, tf.Tensor | None, tf.Tensor | None, tf.Tensor | None], tf.Tensor],
         epochs: int = 200, 
         optimizer: tf.keras.optimizers = tf.keras.optimizers.Adam(learning_rate=5e-4),
@@ -37,9 +42,9 @@ def train_pinn(
     #
     for epoch in range(epochs):
         with tf.GradientTape() as tape:
-            T_ = u(**boundary)
+            T_ = u(boundary['x'], boundary['y'])
             L = f(u, **domain) # pde(**domain)
-            l = loss_func(boundary['value'], T_)
+            l = loss_func(boundary['t'], T_)
             loss = l+L
         g = tape.gradient(loss, model.trainable_weights)
         optimizer.apply_gradients(zip(g, model.trainable_weights))
@@ -54,4 +59,4 @@ def train_pinn(
         "model": model,
         "function": u
     }
-    return results
+    return results, model

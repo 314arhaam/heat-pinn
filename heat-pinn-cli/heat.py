@@ -1,7 +1,8 @@
 import argparse
-import commands.build
 
 def make_parser() -> argparse.ArgumentParser:
+    import commands.build
+    import commands.train
     parser = argparse.ArgumentParser(prog="mycli")
     sub = parser.add_subparsers(dest="command", required=True)
     # Build subcommand
@@ -12,8 +13,18 @@ def make_parser() -> argparse.ArgumentParser:
     p_build.add_argument("--neuron_per_layer", type=int, default=20)
     p_build.add_argument("--actfun", type=str, default="tanh")
     p_build.add_argument("--path", type=str, default="data/")
-    # This automatically assigns the function to args.func
     p_build.set_defaults(func=commands.build.cmd_build)
+    # Train
+    p_build = sub.add_parser("train", help="train PINN")
+    p_build.add_argument("--domain", type=str)
+    p_build.add_argument("--boundary", type=str)
+    p_build.add_argument("--model", type=str)
+    # p_build.add_argument("--pde", type=int, default=1)
+    # p_build.add_argument("--loss", type=int, default=20)
+    p_build.add_argument("--epochs", type=int, default=100)
+    # p_build.add_argument("--optimizer", type=str, default="tanh")
+    p_build.add_argument("--every", type=int, default=20)
+    p_build.set_defaults(func=commands.train.cmd_train)
     return parser
 
 if __name__ == '__main__':
