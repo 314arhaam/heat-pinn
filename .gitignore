@@ -1,4 +1,16 @@
-README.pdf
+# model, data and stuff
+*.joblib
+*.csv
+*.parquet
+
+bin/
+data/
+.DS_Store
+
+# pdf
+*.pdf
+
+geo_test.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

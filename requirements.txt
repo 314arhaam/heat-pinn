@@ -1,0 +1,12 @@
+joblib==1.5.3
+kaleido==1.2.0
+keras==3.14.1
+matplotlib==3.9.2
+numpy==1.26.4
+scipy==1.17.1
+pandas==2.2.3
+plotly==6.7.0
+pyarrow==22.0.0
+tensorboard==2.16.2
+tensorboard-data-server==0.7.2
+tensorflow==2.16.2

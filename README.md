@@ -59,20 +59,55 @@ $$
 \end{equation}
 $$
 
+## `Heat-PINN-CLI`
+
+### Build
+
+### Train
+
+### Inference
+
+
+
 ## Results <a name="res"></a>
   
 ### Square geometry 
+
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/results_compare.png" title="pinn-vs-fdm">
 </p> 
+
 Temperature profiles:  
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/profiles.png" title="profiles">
 </p>
 
 ### Doughnut geometry
+
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/heat_pinn_doughnotts.png" title="doughnotts">
+</p>
+
+### Screw 
+
+<p align="center">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/screw.png" title="screw">
+</p>
+
+### Connecting Rod
+
+<p align="center">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/rod.png" title="conn-rod">
+</p>
+
+### Gear geometry
+
+<p align="center">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/symgear.png" title="symgear">
+</p>
+
+<p align="center">
+  <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/asymgear.png" title="asymgear">
 </p>
 
 
