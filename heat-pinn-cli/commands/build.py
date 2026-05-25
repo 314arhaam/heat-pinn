@@ -17,8 +17,8 @@ def cmd_build(args):
         actfun
         )
     if args.name == "":
-        name = model.name
+        name = f"{model.name}.joblib"
     else:
-        name = args.name
-    joblib.dump(model, pathlib.Path(path, f"{name}.joblib"))
+        name = f"{args.name}"
+    joblib.dump(model, pathlib.Path(path, f"{name}"))
     return 0
