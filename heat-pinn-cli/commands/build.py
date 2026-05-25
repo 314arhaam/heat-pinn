@@ -16,5 +16,9 @@ def cmd_build(args):
         neuron_per_layer, 
         actfun
         )
-    joblib.dump(model, pathlib.Path(path, f"{model.name}.joblib"))
+    if args.name == "":
+        name = model.name
+    else:
+        name = args.name
+    joblib.dump(model, pathlib.Path(path, f"{name}.joblib"))
     return 0
