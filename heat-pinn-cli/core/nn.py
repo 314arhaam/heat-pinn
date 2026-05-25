@@ -34,6 +34,6 @@ def dnn_builder(
         activation=None
     )(hidden[-1])
     # building the model
-    name = f"PINN-DNN-{n_hidden_layers}-{str(uuid.uuid4())}"
+    name = f"PINN-DNN-{in_shape}-{out_shape}-{n_hidden_layers}-{neuron_per_layer}-{str(uuid.uuid4())}"
     model = tf.keras.Model(input_layer, output_layer, name=name)
     return model
