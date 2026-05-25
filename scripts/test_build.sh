@@ -4,4 +4,4 @@ python3 heat-pinn-cli/heat.py build \
     --n-hidden-layers 1 \
     --neuron-per-layer 10 \
     --actfun tanh \
-    --path data/
+    --path data/models
