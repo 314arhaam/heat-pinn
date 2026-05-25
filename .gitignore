@@ -5,9 +5,10 @@
 
 bin/
 data/
+.DS_Store
 
 # pdf
-README.pdf
+*.pdf
 
 geo_test.py
 # Byte-compiled / optimized / DLL files
