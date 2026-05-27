@@ -1,0 +1,40 @@
+name: Build Heat-PINN
+
+on:
+  workflow_dispatch:
+
+jobs:
+  on: ubuntu-22.04
+  steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Get uv
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install uv
+
+    - name: uv sync
+      shell: bash
+      run: uv sync
+    
+    - name: uv build
+      shell: bash
+      run: uv build && ls -l
+    
+    - name: uv tool
+      shell: bash
+      run: |
+        uv tool install .
+    
+    - name: check subs
+      shell: bash
+      run: |
+        heat build --help && heat train --help && heat inference --help
