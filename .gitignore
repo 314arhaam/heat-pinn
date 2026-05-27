@@ -11,6 +11,9 @@ data/
 *.pdf
 
 geo_test.py
+validation/
+*-mirror.toml
+uv.lock
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
