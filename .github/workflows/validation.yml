@@ -1,0 +1,118 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build CLI
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Build wheel
+        run: |
+          uv build
+          ls -lah dist
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 1
+
+  make_geometry:
+    name: Make Geometry
+    runs-on: ubuntu-22.04
+    steps:
+      - name:  d
+        shell: bash
+        run: |
+            mkdir -p data/square
+            python3 utils/square.py \
+            --data-per-boundary 25 \
+            --Nc 10000 \
+            --output-path data/square \
+            --bc-values 0 0.5 0.3 1
+      
+      - name: Upload data
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel
+          path: data/*.parquet
+          if-no-files-found: error
+          retention-days: 1
+  
+  test:
+    name: Test
+    needs: 
+      - build
+      - make_geometry
+    
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12"]
+
+    steps:
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Download wheel
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel
+          path: dist
+
+      - name: Inspect artifact
+        run: ls -lah dist
+
+      - name: Build model
+        run: |
+          uv tool run --from dist/*.whl heat build \
+            --in-shape 2 \
+            --out-shape 1 \
+            --n-hidden-layers 1 \
+            --neuron-per-layer 10 \
+            --actfun tanh \
+            --name test_model.joblib
+      
+      - name: Train model
+        run: |
+          uv tool run --from dist/*.whl heat train \
+            --domain data/square/domain_data.parquet \
+            --boundary data/square/boundary_data.parquet \
+            --model test_model.joblib \
+            --epochs 1000 \
+            --every 100
+    
+      - name: Inference
+        run: |
+          uv tool run --from dist/*.whl heat infer \
+            --data data/square/domain_data.parquet \
+            --model test_model.joblib \
+            --output data/res1.parquet
