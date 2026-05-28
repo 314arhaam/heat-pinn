@@ -98,6 +98,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - run : tree
+      
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
         with:
@@ -146,6 +148,7 @@ jobs:
 
       - name: Generate plot
         run: |
+          tree
           python3 scripts/plot_2d.py data/inference.parquet assets/${{ github.run_id }}.png
 
       - name: Create Pull Request
