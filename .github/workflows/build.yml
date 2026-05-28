@@ -1,4 +1,4 @@
-name: Build Heat-PINN
+name: CI
 
 on:
   push:
@@ -10,52 +10,64 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
+    name: Build CLI
     runs-on: ubuntu-22.04
+
     steps:
-      
       - name: Checkout
         uses: actions/checkout@v4
-  
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      
-      - name: Install uv
+
+      - name: Set up uv
         uses: astral-sh/setup-uv@v5
         with:
+          python-version: "3.12"
           enable-cache: true
-          python-version: '3.12'
-  
-      - name: uv sync
-        shell: bash
-        run: uv sync
-      
-      - name: uv build
-        shell: bash
-        run: uv build && ls -l
-      
-      - name: uv tool
-        shell: bash
-        run: |
-          uv tool install .
-      
-      - name: check model builder
-        shell: bash
-        run: |
-          heat build --help
 
-      - name: check model trainer
-        shell: bash
+      - name: Build wheel
         run: |
-          heat train --help
-  
-      - name: check model inference
-        shell: bash
+          uv build
+          ls -lah dist
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 1
+
+  test:
+    name: Test on Python ${{ matrix.python-version }}
+    needs: build
+    runs-on: ubuntu-22.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.14"]
+
+    steps:
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Download wheel
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel
+          path: dist
+
+      - name: Inspect artifact
+        run: ls -lah dist
+
+      - name: Verify CLI entrypoints from wheel
         run: |
-          heat infer --help
+          uv tool run --from dist/*.whl heat build --help
+          uv tool run --from dist/*.whl heat train --help
+          uv tool run --from dist/*.whl heat infer --help
