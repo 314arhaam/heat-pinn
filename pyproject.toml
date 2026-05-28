@@ -29,9 +29,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["cli"]
-
-# Configure uv to pull all packages from the Liara mirror
-[[tool.uv.index]]
-name = "liara-mirror"
-url = "https://package-mirror.liara.ir/repository/pypi/simple"
-default = true
