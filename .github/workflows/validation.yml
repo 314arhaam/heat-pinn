@@ -120,7 +120,7 @@ jobs:
           uv tool run --from dist/*.whl heat build \
             --in-shape 2 \
             --out-shape 1 \
-            --n-hidden-layers 20 \
+            --n-hidden-layers 1 \
             --neuron-per-layer 10 \
             --actfun tanh \
             --name test_model.joblib
@@ -141,7 +141,7 @@ jobs:
             --model test_model.joblib \
             --output data/inference.parquet
 
-      - name: Run your generation/update script
+      - name: Generate plot
         run: |
           python3 utils/plot_2d.py data/inference.parquet assets/${{ github.run_id }}.png
 

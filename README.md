@@ -4,6 +4,8 @@
 
 [![CI](https://github.com/314arhaam/heat-pinn/actions/workflows/ci.yml/badge.svg)](https://github.com/314arhaam/heat-pinn/actions/workflows/ci.yml)
 
+[![Validation-CPU](https://github.com/314arhaam/heat-pinn/actions/workflows/validation.yml/badge.svg)](https://github.com/314arhaam/heat-pinn/actions/workflows/validation.yml)
+
 # 🔥 $\textbf{Heat-PINN}$ 🔥
 
 <p> A Physics-Informed Neural Network, to solve 2D steady-state heat equation based on the methodology, introduced in: <a href="https://arxiv.org/abs/1711.10561">Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations. </a></p>  
