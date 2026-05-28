@@ -48,4 +48,4 @@ jobs:
       - name: check model inference
         shell: bash
         run: |
-          heat infere --help
+          heat infer --help
