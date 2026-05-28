@@ -72,7 +72,7 @@ jobs:
       - name: Upload data
         uses: actions/upload-artifact@v4
         with:
-          name: wheel
+          name: datasets
           path: data/square/*.parquet
           if-no-files-found: error
           retention-days: 1
@@ -96,6 +96,12 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Download wheel
+        uses: actions/download-artifact@v4
+        with:
+          name: datasets
+          path: data/square
+      
       - name: Download wheel
         uses: actions/download-artifact@v4
         with:
