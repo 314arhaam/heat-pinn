@@ -67,6 +67,7 @@ jobs:
             --Nc 10000 \
             --output-path data/square \
             --bc-values 0 0.5 0.3 1
+            tree
       
       - name: Upload data
         uses: actions/upload-artifact@v4
