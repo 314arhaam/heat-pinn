@@ -1,12 +1,18 @@
-name: Validation
+name: Validation on TF CPU
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - "assets/**"
+
   pull_request:
-    branches:
-      - main
+    branches: [main]
+    paths-ignore:
+      - "README.md"
+      - "assets/**"
+
   workflow_dispatch:
 
 concurrency:
