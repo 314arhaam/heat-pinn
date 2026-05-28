@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wheel
-          path: data/*.parquet
+          path: data/square/*.parquet
           if-no-files-found: error
           retention-days: 1
   
