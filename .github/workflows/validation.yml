@@ -45,7 +45,10 @@ jobs:
     name: Make Geometry
     runs-on: ubuntu-22.04
     steps:
-      - name:  d
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name:  Make geometry data
         shell: bash
         run: |
             mkdir -p data/square
