@@ -35,7 +35,17 @@ jobs:
         run: |
           uv tool install .
       
-      - name: check subs
+      - name: check model builder
         shell: bash
         run: |
-          heat build --help && heat train --help && heat inference --help
+          heat build --help
+
+      - name: check model trainer
+        shell: bash
+        run: |
+          heat train --help
+  
+      - name: check model inference
+        shell: bash
+        run: |
+          heat infere --help
