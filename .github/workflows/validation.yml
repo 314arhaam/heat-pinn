@@ -146,6 +146,16 @@ jobs:
             --model test_model.joblib \
             --output data/inference.parquet
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        shell: bash
+        run: pip install --upgrade pip && pip install -r requirements.txt
+
       - name: Generate plot
         run: |
           tree
