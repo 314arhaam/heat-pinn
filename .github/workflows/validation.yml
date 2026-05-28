@@ -50,7 +50,7 @@ jobs:
       
       - name: Install dependencies
         shell: bash
-        run: pip install --upgrade pip && pip install numpy scipy pandas matplotlib
+        run: pip install --upgrade pip && pip install -r requirements.txt
       
       - name:  Make geometry data
         shell: bash
