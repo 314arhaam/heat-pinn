@@ -1,11 +1,8 @@
-import pathlib, joblib, os
-import cli.core.train
-import pandas as pd
-import numpy as np
-import tensorflow as tf
-import cli.utils.datatools
+import joblib
 
 def cmd_train(args):
+    import cli.core.train
+    import cli.utils.datatools
     domain = cli.utils.datatools.parquet_to_tensor(args.domain)
     boundary = cli.utils.datatools.parquet_to_tensor(args.boundary)
     model = joblib.load(args.model)

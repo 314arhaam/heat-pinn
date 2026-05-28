@@ -1,8 +1,8 @@
 import joblib
-import cli.core.inference
-import cli.utils.datatools
 
 def cmd_infer(args):
+    import cli.core.inference
+    import cli.utils.datatools
     data = cli.utils.datatools.parquet_to_tensor(args.data)
     model = joblib.load(args.model)
     output = args.output

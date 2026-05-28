@@ -1,7 +1,7 @@
-import pathlib, joblib, os
-import cli.core.nn
+import joblib
 
 def cmd_build(args):
+    import cli.core.nn
     in_shape = args.in_shape
     out_shape = args.out_shape
     n_hidden_layers = args.n_hidden_layers
