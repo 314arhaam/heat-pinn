@@ -143,7 +143,7 @@ jobs:
 
       - name: Generate plot
         run: |
-          python3 utils/plot_2d.py data/inference.parquet assets/${{ github.run_id }}.png
+          python3 scripts/plot_2d.py data/inference.parquet assets/${{ github.run_id }}.png
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
