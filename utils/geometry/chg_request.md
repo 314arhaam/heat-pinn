@@ -22,8 +22,9 @@ Mind a space between cylinder holes (space).
 - Total Boundary Points (Edges): 2k
 
 **Physics Metadata (Boundary Values):**
-- Outer Boundary Value (t): 50
-- Inner Boundary Value (t): 90
+- Cylinder hole Boundary value (t): 50
+- Plate Boundary value: 90
+- Screw boundary value: 60
 
 **Technical Specs:**
 - Precision: float64

@@ -9,7 +9,32 @@ from shapely.ops import unary_union
 
 # Cylinder Head Gasket Geometry Generator
 
-def create_gasket_geometry(plate_width, plate_height, hole_radius, screw_radius, n_cylinders, n_screws, n_domain, n_boundary, space, output_path, plot):
+
+def _sample_ring(ring, n_samples):
+    if n_samples <= 0:
+        return np.empty((0, 2), dtype=np.float64)
+    distances = np.linspace(0.0, ring.length, n_samples, endpoint=False)
+    pts = [ring.interpolate(d) for d in distances]
+    return np.array([(p.x, p.y) for p in pts], dtype=np.float64)
+
+
+def create_gasket_geometry(
+    plate_width,
+    plate_height,
+    hole_radius,
+    screw_radius,
+    n_cylinders,
+    n_screws,
+    n_domain,
+    n_boundary,
+    space,
+    output_path,
+    plot,
+    t_cylinder,
+    t_plate,
+    t_screw,
+    t_random,
+):
     # Increase space between cylinder holes for better separation
     space = max(space, 0.03)  # Set a larger minimum space (e.g., 3 cm)
 
@@ -66,18 +91,45 @@ def create_gasket_geometry(plate_width, plate_height, hole_radius, screw_radius,
     all_holes = unary_union(cylinders + screws + random_holes)
     domain = plate.difference(all_holes)
 
-    # Boundary sampling (outer + holes)
-    boundary_points = []
-    # Outer boundary
-    outer = np.array(domain.exterior.coords)
-    idx = np.round(np.linspace(0, len(outer) - 1, n_boundary // (1 + len(cylinders) + len(screws) + len(random_holes)))).astype(int)
-    boundary_points.extend(outer[idx])
-    # Holes boundaries
-    for interior in domain.interiors:
-        coords = np.array(interior.coords)
-        idx = np.round(np.linspace(0, len(coords) - 1, max(2, n_boundary // (1 + len(cylinders) + len(screws) + len(random_holes))))).astype(int)
-        boundary_points.extend(coords[idx])
-    boundary_points = np.array(boundary_points, dtype=np.float64)
+    # Boundary sampling with explicit t-values
+    # domain boundary schema must be x,y,t
+    segments = [(plate.exterior, float(t_plate))]
+    segments.extend((c.exterior, float(t_cylinder)) for c in cylinders)
+    segments.extend((s.exterior, float(t_screw)) for s in screws)
+    segments.extend((r.exterior, float(t_random)) for r in random_holes)
+
+    lengths = np.array([ring.length for ring, _ in segments], dtype=np.float64)
+    weights = lengths / lengths.sum()
+    raw_counts = weights * int(n_boundary)
+    counts = np.floor(raw_counts).astype(int)
+
+    # Ensure at least one sample per segment if possible.
+    if int(n_boundary) >= len(segments):
+        counts = np.maximum(counts, 1)
+
+    diff = int(n_boundary) - int(counts.sum())
+    if diff > 0:
+        order = np.argsort(-(raw_counts - np.floor(raw_counts)))
+        for i in order[:diff]:
+            counts[i] += 1
+    elif diff < 0:
+        order = np.argsort(raw_counts - np.floor(raw_counts))
+        for i in order:
+            if diff == 0:
+                break
+            if counts[i] > 1:
+                counts[i] -= 1
+                diff += 1
+
+    boundary_rows = []
+    for (ring, t_val), cnt in zip(segments, counts):
+        sampled = _sample_ring(ring, int(cnt))
+        if sampled.size == 0:
+            continue
+        t_col = np.full((sampled.shape[0], 1), t_val, dtype=np.float64)
+        boundary_rows.append(np.hstack([sampled, t_col]))
+
+    boundary_data = np.vstack(boundary_rows).astype(np.float64)
 
     # Domain sampling (rejection sampling)
     minx, miny, maxx, maxy = domain.bounds
@@ -93,7 +145,7 @@ def create_gasket_geometry(plate_width, plate_height, hole_radius, screw_radius,
     # Save to Parquet
     out_dir = Path(output_path)
     out_dir.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(boundary_points, columns=["x", "y"]).to_parquet(out_dir / "boundary_data.parquet", index=False)
+    pd.DataFrame(boundary_data, columns=["x", "y", "t"]).to_parquet(out_dir / "boundary_data.parquet", index=False)
     pd.DataFrame(domain_points, columns=["x", "y"]).to_parquet(out_dir / "domain_data.parquet", index=False)
 
     # Plot
@@ -110,8 +162,16 @@ def create_gasket_geometry(plate_width, plate_height, hole_radius, screw_radius,
         for r in random_holes:
             xs, ys = zip(*r.exterior.coords)
             plt.plot(xs, ys, 'm-', lw=1, label='Random Hole' if r is random_holes[0] else None)
-        plt.scatter(domain_points[:,0], domain_points[:,1], s=0.2, c='orange', label='Domain')
-        plt.scatter(boundary_points[:,0], boundary_points[:,1], s=2, c='red', label='Boundary')
+        plt.scatter(domain_points[:, 0], domain_points[:, 1], s=0.2, c='orange', label='Domain')
+        scatter = plt.scatter(
+            boundary_data[:, 0],
+            boundary_data[:, 1],
+            s=2,
+            c=boundary_data[:, 2],
+            cmap='viridis',
+            label='Boundary',
+        )
+        plt.colorbar(scatter, label='Boundary value (t)')
         plt.legend()
         plt.axis('equal')
         plt.title('Cylinder Head Gasket Geometry')
@@ -131,6 +191,10 @@ if __name__ == "__main__":
     parser.add_argument('--n_domain', type=int, default=20000, help='Number of domain points')
     parser.add_argument('--n_boundary', type=int, default=2000, help='Number of boundary points')
     parser.add_argument('--space', type=float, default=0.03, help='Minimum space between cylinder holes (m)')
+    parser.add_argument('--t-cylinder', type=float, default=50.0, help='Boundary value t for cylinder holes')
+    parser.add_argument('--t-plate', type=float, default=90.0, help='Boundary value t for outer plate boundary')
+    parser.add_argument('--t-screw', type=float, default=60.0, help='Boundary value t for screw holes')
+    parser.add_argument('--t-random', type=float, default=60.0, help='Boundary value t for random small holes')
     args = parser.parse_args()
 
     create_gasket_geometry(
@@ -144,5 +208,9 @@ if __name__ == "__main__":
         n_boundary=args.n_boundary,
         space=args.space,
         output_path=args.output_path,
-        plot=args.plot
+        plot=args.plot,
+        t_cylinder=args.t_cylinder,
+        t_plate=args.t_plate,
+        t_screw=args.t_screw,
+        t_random=args.t_random,
     )
