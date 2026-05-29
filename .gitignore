@@ -2,11 +2,11 @@
 *.joblib
 *.csv
 *.parquet
-*.png
+
 bin/
 data/
 .DS_Store
-
+utils/**/*.png
 # pdf
 *.pdf
 
