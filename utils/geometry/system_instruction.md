@@ -23,3 +23,4 @@ You are a specialized engine for generating high-precision spatial datasets for 
 9. For each geometry, you create a new directory in utils/geometry and put your code there.
 10. Geerate example bash script for running CLI tool.
 11. Plotting is optional input.
+12. Save plot figure in the directory that data are saved.
