@@ -62,24 +62,18 @@ jobs:
 
       - name: Install dependencies
         shell: bash
-        run: pip install --upgrade pip && pip install -r requirements.txt
+        run: pip install --upgrade pip && pip install -r utils/geometry/requirements.txt
       
       - name:  Make geometry data
         shell: bash
-        run: |
-            mkdir -p data/square
-            python3 utils/square.py \
-            --data-per-boundary 25 \
-            --Nc 10000 \
-            --output-path data/square \
-            --bc-values 0 0.5 0.3 1
-            tree
+        working-directory: utils/geometry/square
+        run: ./run_square.sh
       
       - name: Upload data
         uses: actions/upload-artifact@v4
         with:
           name: datasets
-          path: data/square/*.parquet
+          path: utils/geometry/square/output/cylinder_head_gasket/*.parquet
           if-no-files-found: error
           retention-days: 1
   
@@ -115,7 +109,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: datasets
-          path: data/square
+          path: data
       
       - name: Download wheel
         uses: actions/download-artifact@v4
@@ -139,8 +133,8 @@ jobs:
       - name: Train model
         run: |
           uv tool run --from dist/*.whl heat train \
-            --domain data/square/domain_data.parquet \
-            --boundary data/square/boundary_data.parquet \
+            --domain data/domain_data.parquet \
+            --boundary data/boundary_data.parquet \
             --model test_model.joblib \
             --epochs 1000 \
             --every 100
@@ -148,7 +142,7 @@ jobs:
       - name: Inference
         run: |
           uv tool run --from dist/*.whl heat infer \
-            --data data/square/domain_data.parquet \
+            --data data/domain_data.parquet \
             --model test_model.joblib \
             --output data/inference.parquet
 
