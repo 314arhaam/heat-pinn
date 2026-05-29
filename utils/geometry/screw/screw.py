@@ -1,10 +1,13 @@
+import argparse
+from pathlib import Path
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from shapely.geometry import Polygon, Point
-from shapely.ops import unary_union
+from shapely.geometry import Point, Polygon
 
-def generate_realistic_screw():
+
+def generate_realistic_screw(output_path: str, plot: bool) -> None:
     # --- Dimensions ---
     head_radius = 0.6
     head_height = 0.3
@@ -103,22 +106,30 @@ def generate_realistic_screw():
     # --- 4. Export to Parquet (Float64) ---
     df_boundary = pd.DataFrame(boundary_data, columns=['x', 'y', 't']).astype(np.float64)
     df_domain = pd.DataFrame(domain_points, columns=['x', 'y']).astype(np.float64)
-    
-    df_boundary.to_parquet("realistic_screw_boundary.parquet")
-    df_domain.to_parquet("realistic_screw_domain.parquet")
+    out_dir = Path(output_path)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    df_boundary.to_parquet(out_dir / "boundary_data.parquet", index=False)
+    df_domain.to_parquet(out_dir / "domain_data.parquet", index=False)
 
     # --- 5. Visualization ---
-    plt.figure(figsize=(6, 12))
-    plt.scatter(df_domain['x'], df_domain['y'], s=0.5, c='silver', alpha=0.3, label='Internal Domain')
-    
-    scatter = plt.scatter(df_boundary['x'], df_boundary['y'], 
-                         c=df_boundary['t'], cmap='coolwarm', s=4, edgecolors='none')
-    
-    plt.colorbar(scatter, label='Boundary Temperature / Value (t)')
-    plt.title("Realistic Screw Geometry for PINN")
-    plt.axis('equal')
-    plt.grid(True, which='both', linestyle='--', alpha=0.5)
-    plt.show()
+    if plot:
+        plt.figure(figsize=(6, 12))
+        plt.scatter(df_domain['x'], df_domain['y'], s=0.5, c='silver', alpha=0.3, label='Internal Domain')
+        scatter = plt.scatter(df_boundary['x'], df_boundary['y'], c=df_boundary['t'], cmap='coolwarm', s=4, edgecolors='none')
+        plt.colorbar(scatter, label='Boundary Temperature / Value (t)')
+        plt.title("Realistic Screw Geometry for PINN")
+        plt.axis('equal')
+        plt.grid(True, which='both', linestyle='--', alpha=0.5)
+        plt.savefig(out_dir / "geometry.png", dpi=300)
+        plt.close()
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate screw geometry data.")
+    parser.add_argument("--output-path", type=str, required=True, help="Output directory path.")
+    parser.add_argument("--plot", action="store_true", help="Save geometry plot.")
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    generate_realistic_screw()
+    args = parse_args()
+    generate_realistic_screw(output_path=args.output_path, plot=args.plot)

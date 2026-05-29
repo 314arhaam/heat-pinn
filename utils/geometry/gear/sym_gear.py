@@ -1,10 +1,13 @@
+import argparse
+from pathlib import Path
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from shapely.geometry import Polygon, Point, MultiPoint
-from shapely.ops import unary_union
+from shapely.geometry import Point, Polygon
 
-def generate_gear_pinn_data():
+
+def generate_gear_pinn_data(output_path: str, plot: bool) -> None:
     # --- Configuration ---
     num_teeth = 13
     outer_radius = 1.0
@@ -73,23 +76,30 @@ def generate_gear_pinn_data():
     # Using float64 as requested
     df_boundary = df_boundary.astype(np.float64)
     df_domain = df_domain.astype(np.float64)
-    
-    df_boundary.to_parquet("boundary_data.parquet")
-    df_domain.to_parquet("domain_data.parquet")
-    print("Files saved: boundary_data.parquet, domain_data.parquet")
+    out_dir = Path(output_path)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    df_boundary.to_parquet(out_dir / "boundary_data.parquet", index=False)
+    df_domain.to_parquet(out_dir / "domain_data.parquet", index=False)
 
     # --- 5. Plotting ---
-    plt.figure(figsize=(8, 8))
-    plt.scatter(df_domain['x'], df_domain['y'], s=1, c='lightgray', label='Domain (10k)')
-    plt.scatter(df_boundary[df_boundary['t']==1]['x'], 
-                df_boundary[df_boundary['t']==1]['y'], s=5, c='red', label='Outer (t=1)')
-    plt.scatter(df_boundary[df_boundary['t']==0]['x'], 
-                df_boundary[df_boundary['t']==0]['y'], s=5, c='blue', label='Inner (t=0)')
-    
-    plt.axis('equal')
-    plt.title(f"{num_teeth}-Teeth Gear PINN Geometry")
-    plt.legend()
-    plt.show()
+    if plot:
+        plt.figure(figsize=(8, 8))
+        plt.scatter(df_domain['x'], df_domain['y'], s=1, c='lightgray', label='Domain (10k)')
+        plt.scatter(df_boundary[df_boundary['t']==1]['x'], df_boundary[df_boundary['t']==1]['y'], s=5, c='red', label='Outer (t=1)')
+        plt.scatter(df_boundary[df_boundary['t']==0]['x'], df_boundary[df_boundary['t']==0]['y'], s=5, c='blue', label='Inner (t=0)')
+        plt.axis('equal')
+        plt.title(f"{num_teeth}-Teeth Gear PINN Geometry")
+        plt.legend()
+        plt.savefig(out_dir / "geometry.png", dpi=300)
+        plt.close()
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate symmetric gear geometry data.")
+    parser.add_argument("--output-path", type=str, required=True, help="Output directory path.")
+    parser.add_argument("--plot", action="store_true", help="Save geometry plot.")
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    generate_gear_pinn_data()
+    args = parse_args()
+    generate_gear_pinn_data(output_path=args.output_path, plot=args.plot)
