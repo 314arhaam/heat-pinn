@@ -6,6 +6,7 @@ def cmd_train(args):
     domain = cli.utils.datatools.parquet_to_tensor(args.domain)
     boundary = cli.utils.datatools.parquet_to_tensor(args.boundary)
     model = joblib.load(args.model)
+    lr = args.lr
     # loss
     epochs = args.epochs
     every = args.every
@@ -15,7 +16,8 @@ def cmd_train(args):
         boundary=boundary,
         model=model,
         epochs=epochs,
-        every=every
+        every=every,
+        lr=lr
         )
     print(results)
     joblib.dump(trained_model, args.model)
