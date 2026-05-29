@@ -73,7 +73,7 @@ $$
 
 
 
-## Results <a name="res"></a>
+## Validation <a name="res"></a>
   
 ### Square geometry 
 
@@ -85,6 +85,8 @@ Temperature profiles:
 <p align="center">
   <img src="https://github.com/314arhaam/heat-pinn/blob/main/assets/profiles.png" title="profiles">
 </p>
+
+## Results <a name="res"></a>
 
 ### Doughnut geometry
 
