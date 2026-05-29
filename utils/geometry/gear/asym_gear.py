@@ -1,10 +1,13 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from shapely.geometry import Polygon, Point
+import argparse
 from pathlib import Path
 
-def generate_clock_gear_data():
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from shapely.geometry import Point, Polygon
+
+
+def generate_clock_gear_data(output_path: str, plot: bool) -> None:
     # --- Configuration ---
     num_teeth = 13
     outer_radius = 1.0
@@ -80,22 +83,29 @@ def generate_clock_gear_data():
     df_boundary = df_boundary.astype(np.float64)
     df_domain = df_domain.astype(np.float64)
     
-    df_boundary.to_parquet("boundary_data.parquet")
-    df_domain.to_parquet("domain_data.parquet")
+    out_dir = Path(output_path)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    df_boundary.to_parquet(out_dir / "boundary_data.parquet", index=False)
+    df_domain.to_parquet(out_dir / "domain_data.parquet", index=False)
 
     # --- 6. Visualization ---
-    plt.figure(figsize=(10, 10))
-    # Plot domain
-    plt.scatter(df_domain['x'], df_domain['y'], s=0.5, c='gainsboro', alpha=0.5)
-    
-    # Plot boundary with color coding
-    scatter = plt.scatter(df_boundary['x'], df_boundary['y'], 
-                         c=df_boundary['t'], cmap='jet', s=10, edgecolors='none')
-    
-    plt.colorbar(scatter, label='Boundary Value (t)')
-    plt.title(f"Gear PINN: Outer Arc [03:30-07:30] t=0.4, Rest t=1.0, Inner t=0.0")
-    plt.axis('equal')
-    plt.show()
+    if plot:
+        plt.figure(figsize=(10, 10))
+        plt.scatter(df_domain['x'], df_domain['y'], s=0.5, c='gainsboro', alpha=0.5)
+        scatter = plt.scatter(df_boundary['x'], df_boundary['y'], c=df_boundary['t'], cmap='jet', s=10, edgecolors='none')
+        plt.colorbar(scatter, label='Boundary Value (t)')
+        plt.title("Gear PINN: Outer Arc [03:30-07:30] t=0.4, Rest t=1.0, Inner t=0.0")
+        plt.axis('equal')
+        plt.savefig(out_dir / "geometry.png", dpi=300)
+        plt.close()
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate asymmetric gear geometry data.")
+    parser.add_argument("--output-path", type=str, required=True, help="Output directory path.")
+    parser.add_argument("--plot", action="store_true", help="Save geometry plot.")
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    generate_clock_gear_data()
+    args = parse_args()
+    generate_clock_gear_data(output_path=args.output_path, plot=args.plot)

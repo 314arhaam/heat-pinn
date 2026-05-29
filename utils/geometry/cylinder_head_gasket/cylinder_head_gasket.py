@@ -1,10 +1,11 @@
 import argparse
+from pathlib import Path
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from shapely.geometry import Point, Polygon
 from shapely.ops import unary_union
-import matplotlib.pyplot as plt
-import os
 
 # Cylinder Head Gasket Geometry Generator
 
@@ -90,8 +91,10 @@ def create_gasket_geometry(plate_width, plate_height, hole_radius, screw_radius,
     domain_points = np.array(domain_points, dtype=np.float64)
 
     # Save to Parquet
-    pd.DataFrame(boundary_points, columns=["x", "y"]).to_parquet(f"{output_path}_boundary.parquet")
-    pd.DataFrame(domain_points, columns=["x", "y"]).to_parquet(f"{output_path}_domain.parquet")
+    out_dir = Path(output_path)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(boundary_points, columns=["x", "y"]).to_parquet(out_dir / "boundary_data.parquet", index=False)
+    pd.DataFrame(domain_points, columns=["x", "y"]).to_parquet(out_dir / "domain_data.parquet", index=False)
 
     # Plot
     if plot:
@@ -112,15 +115,12 @@ def create_gasket_geometry(plate_width, plate_height, hole_radius, screw_radius,
         plt.legend()
         plt.axis('equal')
         plt.title('Cylinder Head Gasket Geometry')
-        # Save plot in the same directory as data
-        plot_dir = os.path.dirname(os.path.abspath(output_path))
-        plot_path = os.path.join(plot_dir, os.path.basename(output_path) + "_geometry.png")
-        plt.savefig(plot_path, dpi=300)
+        plt.savefig(out_dir / "geometry.png", dpi=300)
         plt.close()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate Cylinder Head Gasket geometry and dataset.")
-    parser.add_argument('--output', type=str, required=True, help='Output path prefix for Parquet files')
+    parser.add_argument('--output-path', type=str, required=True, help='Output directory path for Parquet files')
     parser.add_argument('--plot', action='store_true', help='Plot the geometry and points and save figure')
     parser.add_argument('--plate_width', type=float, default=1.0, help='Plate width (m)')
     parser.add_argument('--plate_height', type=float, default=0.25, help='Plate height (m)')
@@ -143,6 +143,6 @@ if __name__ == "__main__":
         n_domain=args.n_domain,
         n_boundary=args.n_boundary,
         space=args.space,
-        output_path=args.output,
+        output_path=args.output_path,
         plot=args.plot
     )
