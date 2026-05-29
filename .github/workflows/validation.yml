@@ -66,8 +66,8 @@ jobs:
       
       - name:  Make geometry data
         shell: bash
-        working-directory: utils/geometry/square
-        run: ./run_square.sh
+        working-directory: utils/geometry/cylinder_head_gasket
+        run: ./run_cylinder_gasket.sh
       
       - name: Upload data
         uses: actions/upload-artifact@v4
