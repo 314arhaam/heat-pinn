@@ -30,7 +30,7 @@ def train_pinn(
         lr: float = 1e-3,
         every: int = 200
 ) -> Dict[str, Any]:
-    optimizer: tf.keras.optimizers = tf.keras.optimizers.Adam(learning_rate=lr),
+    optimizer: tf.keras.optimizers = tf.keras.optimizers.Adam(learning_rate=lr)
     loss_values = np.array([])
     u = cli.utils.modeltools.model_wrapper(model)
     #
