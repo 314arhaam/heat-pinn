@@ -66,14 +66,14 @@ jobs:
       
       - name:  Make geometry data
         shell: bash
-        working-directory: utils/geometry/cylinder_head_gasket
-        run: ./run_cylinder_gasket.sh
+        working-directory: utils/geometry/rod
+        run: ./run_rod.sh
       
       - name: Upload data
         uses: actions/upload-artifact@v4
         with:
           name: datasets
-          path: utils/geometry/cylinder_head_gasket/output/*.parquet
+          path: utils/geometry/rod/output/*.parquet
           if-no-files-found: error
           retention-days: 1
   
