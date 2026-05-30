@@ -77,6 +77,14 @@ def make_parser() -> argparse.ArgumentParser:
         type=str,
         help="Path of model file"
     )
+    p_train.add_argument(
+        "-l",
+        "--lr",
+        "--learning-rate",
+        type=float, 
+        default=1e-3,
+        help="Learning rate for the optimizer"
+    )
     # p_train.add_argument("--pde", type=int, default=1)
     # p_train.add_argument("--loss", type=int, default=20)
     p_train.add_argument(

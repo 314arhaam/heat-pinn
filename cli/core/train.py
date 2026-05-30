@@ -27,9 +27,10 @@ def train_pinn(
         loss_func: Callable[[tf.Tensor, tf.Tensor], tf.Tensor] = mse,
         # pde: Callable[[tf.Tensor, tf.Tensor | None, tf.Tensor | None, tf.Tensor | None], tf.Tensor],
         epochs: int = 200, 
-        optimizer: tf.keras.optimizers = tf.keras.optimizers.Adam(learning_rate=5e-3),
+        lr: float = 1e-3,
         every: int = 200
 ) -> Dict[str, Any]:
+    optimizer: tf.keras.optimizers = tf.keras.optimizers.Adam(learning_rate=lr)
     loss_values = np.array([])
     u = cli.utils.modeltools.model_wrapper(model)
     #

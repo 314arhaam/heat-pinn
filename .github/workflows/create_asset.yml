@@ -125,7 +125,8 @@ jobs:
             --boundary data/boundary_data.parquet \
             --model test_model.joblib \
             --epochs 1000 \
-            --every 100
+            --every 100 \
+            --learning-rate 5e-2
     
       - name: Inference
         run: |
