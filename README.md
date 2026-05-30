@@ -6,7 +6,7 @@
 
 [![Validation-CPU](https://github.com/314arhaam/heat-pinn/actions/workflows/validation.yml/badge.svg)](https://github.com/314arhaam/heat-pinn/actions/workflows/validation.yml)
 
-# 🔥 $\textbf{Heat-PINN}$ 🔥
+# Heat-PINN
 
 <p> A Physics-Informed Neural Network, to solve 2D steady-state heat equation based on the methodology, introduced in: <a href="https://arxiv.org/abs/1711.10561">Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations. </a></p>  
 
@@ -63,15 +63,87 @@ $$
 \end{equation}
 $$
 
-## `Heat-PINN-CLI`
+## Heat-PINN CLI
+
+### Installation
 
 ### Build
 
+```
+.-----------------------------------------------------------------------.
+|.##.....#.#######....###...#######........########.###.##....#.##....##|
+|.##.....#.##........##.##.....##..........##.....#..##.###...#.###...##|
+|.##.....#.##.......##...##....##..........##.....#..##.####..#.####..##|
+|.########.######..##.....#....##...######.########..##.##.##.#.##.##.##|
+|.##.....#.##......########....##..........##........##.##..###.##..####|
+|.##.....#.##......##.....#....##..........##........##.##...##.##...###|
+|.##.....#.#######.##.....#....##..........##.......###.##....#.##....##|
+'-----------------------------------------------------------------------'
+
+usage: heat build [-h] [--in-shape IN_SHAPE] [--out-shape OUT_SHAPE]
+                  [--n-hidden-layers N_HIDDEN_LAYERS]
+                  [--neuron-per-layer NEURON_PER_LAYER] [--actfun ACTFUN]
+                  [--name NAME]
+
+options:
+  -h, --help            show this help message and exit
+  --in-shape IN_SHAPE   Shape of the input tensor to feed into NN. Equal to
+                        the number of independent variables of PDE.
+  --out-shape OUT_SHAPE
+                        Shape of the output tensor of NN. For heat transfer
+                        it's T (equal to 1)
+  --n-hidden-layers N_HIDDEN_LAYERS
+                        Number of hidden layers in the NN
+  --neuron-per-layer NEURON_PER_LAYER
+                        Number of neurons in each hidden layer
+  --actfun ACTFUN       Activation function
+  --name NAME           Name of the model.
+```
 ### Train
+```
+.-----------------------------------------------------------------------.
+|.##.....#.#######....###...#######........########.###.##....#.##....##|
+|.##.....#.##........##.##.....##..........##.....#..##.###...#.###...##|
+|.##.....#.##.......##...##....##..........##.....#..##.####..#.####..##|
+|.########.######..##.....#....##...######.########..##.##.##.#.##.##.##|
+|.##.....#.##......########....##..........##........##.##..###.##..####|
+|.##.....#.##......##.....#....##..........##........##.##...##.##...###|
+|.##.....#.#######.##.....#....##..........##.......###.##....#.##....##|
+'-----------------------------------------------------------------------'
 
+usage: heat train [-h] [--domain DOMAIN] [--boundary BOUNDARY] [--model MODEL]
+                  [-l LR] [--epochs EPOCHS] [--every EVERY]
+
+options:
+  -h, --help            show this help message and exit
+  --domain DOMAIN       Path of domain data file
+  --boundary BOUNDARY   Path of boundary data file
+  --model MODEL         Path of model file
+  -l LR, --lr LR, --learning-rate LR
+                        Learning rate for the optimizer
+  --epochs EPOCHS       Number of training epochs
+  --every EVERY         Print result for every n epochs
+```
 ### Inference
+```
+.-----------------------------------------------------------------------.
+|.##.....#.#######....###...#######........########.###.##....#.##....##|
+|.##.....#.##........##.##.....##..........##.....#..##.###...#.###...##|
+|.##.....#.##.......##...##....##..........##.....#..##.####..#.####..##|
+|.########.######..##.....#....##...######.########..##.##.##.#.##.##.##|
+|.##.....#.##......########....##..........##........##.##..###.##..####|
+|.##.....#.##......##.....#....##..........##........##.##...##.##...###|
+|.##.....#.#######.##.....#....##..........##.......###.##....#.##....##|
+'-----------------------------------------------------------------------'
 
+usage: heat infer [-h] [--data DATA] [--model MODEL] [--output OUTPUT]
 
+options:
+  -h, --help       show this help message and exit
+  --data DATA      Path of data file to perform inference
+  --model MODEL    Path of model file
+  --output OUTPUT  Path of output data file
+```
 
 ## Validation <a name="res"></a>
   
